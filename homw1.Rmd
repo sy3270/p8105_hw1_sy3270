@@ -1,0 +1,96 @@
+---
+title: "hw-1-sy3270"
+author: "ShuaiYuan"
+date: "2024-09-16"
+output: github_document
+---
+
+I'm an R Markdown document! 
+
+# Problem 1 Loading the penguins dataset and library ggplot
+
+
+```{r}
+install.packages("palmerpenguins")
+
+# Load necessary packages
+library(palmerpenguins)
+library(ggplot2)
+
+# Load the penguins dataset
+data("penguins")
+```
+
+
+
+```{r}
+# Description of the dataset
+num_rows <- nrow(penguins)  # Number of rows
+num_cols <- ncol(penguins)  # Number of columns
+mean_flipper_length <- mean(penguins$flipper_length_mm, na.rm = TRUE)  # Mean flipper length
+
+# Print the summary in the RMarkdown file
+cat("The penguins dataset contains", num_rows, "rows and", num_cols, "columns.\n")
+cat("The mean flipper length is", mean_flipper_length, "mm.\n")
+
+# Create the scatter plot
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) +
+  geom_point() +
+  labs(title = "Scatter Plot of Flipper Length vs Bill Length", 
+       x = "Bill Length (mm)", 
+       y = "Flipper Length (mm)")
+
+
+
+```
+
+```{r}
+
+# Save the scatterplot to the project directory
+ggsave("penguins_scatterplot.png")
+
+```
+
+
+# Problem 2
+
+```{r}
+# Load necessary packages
+library(tidyverse)
+
+# Set random seed for reproducibility
+set.seed(123)
+
+
+
+```
+
+# Create a data frame with numeric, logical, character, and factor variables
+
+```{r}
+df <- data.frame(
+  numeric_var = rnorm(10),  # Random sample from standard normal distribution
+  logical_var = rnorm(10) > 0,  # Logical vector: TRUE if greater than 0
+  character_var = sample(letters, 10),  # Random character vector
+  factor_var = factor(sample(c("Level1", "Level2", "Level3"), 10, replace = TRUE))  # Factor with 3 levels
+)
+
+# Calculate means where applicable
+numeric_mean <- mean(df$numeric_var)
+logical_mean <- mean(as.numeric(df$logical_var))
+
+# Convert factor to numeric levels and calculate the mean
+factor_mean <- mean(as.numeric(df$factor_var))
+
+
+
+```
+
+# Output results
+```{r}
+cat("Mean of numeric_var:", numeric_mean, "\n")
+cat("Mean of logical_var:", logical_mean, "\n")
+cat("Mean of factor_var (numeric levels):", factor_mean, "\n")
+
+
+```
